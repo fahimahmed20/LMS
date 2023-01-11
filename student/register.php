@@ -39,19 +39,37 @@ if(isset($_POST['submit_btn'])){
         $email_check = mysqli_query($con,"SELECT * FROM `students` WHERE `email` = '$email'");
         $email_check_err = mysqli_num_rows($email_check);
         if($email_check_err == 0){
-
+            $username_check = mysqli_query($con,"SELECT * FROM `students` WHERE `username` = '$unsername'");
+            $username_check_err = mysqli_num_rows($username_check);
+            if($username_check_err == 0){
+                if(strlen($unsername) > 7){
+                    if(strlen($password) > 7){
+                        $phone_check = mysqli_query($con,"SELECT * FROM `students` WHERE `phone` = '$phone'");
+                        $phone_check_err = mysqli_num_rows($phone_check);
+                        if($phone_check_err == 0){
+                            $password_hash = password_hash($password, PASSWORD_DEFAULT);
+                            $result = mysqli_query( $con ,"INSERT INTO `students`(`fname`, `lname`, `roll`, `reg`, `email`, `username`, `password`,`phone`) VALUES ('$fname','$lname','$roll','$reg','$email','$unsername','$password_hash','$phone')");
+                            
+                            if($result){
+                                $res_success = "Registration Successfully!";
+                            }else{
+                                $res_error = "Something wrong";
+                            }
+                        }else{
+                            $phone_error_message = "This phone number already exists";
+                        }
+                    }else{
+                        $password_count_err = "The password should be more than 7 letter";
+                    }
+                }else{
+                    $username_count_err = "The user name should be more than 7 letter";
+                }
+            }else{
+                $username_error_message = "This username already exists";
+            }
         }else{
             $email_error_message = "This email is already exists";
         }
-
-        // $password_hash = password_hash($password, PASSWORD_DEFAULT);
-        // $result = mysqli_query( $con ,"INSERT INTO `students`(`fname`, `lname`, `roll`, `reg`, `email`, `username`, `password`,`phone`) VALUES ('$fname','$lname','$roll','$reg','$email','$unsername','$password_hash','$phone')");
-        
-        // if($result){
-        //     $res_success = "Registration Successfully!";
-        // }else{
-        //     $res_error = "Something wrong";
-        // }
     }
     
 }
@@ -90,6 +108,46 @@ if(isset($_POST['submit_btn'])){
         <div class="logo">
            <h1 class="text-center">LMS</h1>
            <?php
+            if(isset($password_count_err)){
+                ?>
+                <div class="alert alert-danger" role="alert">
+                    <span style="color: #fff;"><?= $password_count_err; ?></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true" style="color: #fff;">&times;</span>
+                    </button>
+                </div>
+                <?php
+            }
+            if(isset($username_count_err)){
+                ?>
+                <div class="alert alert-danger" role="alert">
+                    <span style="color: #fff;"><?= $username_count_err; ?></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true" style="color: #fff;">&times;</span>
+                    </button>
+                </div>
+                <?php
+            }
+            if(isset($phone_error_message)){
+                ?>
+                <div class="alert alert-danger" role="alert">
+                    <span style="color: #fff;"><?= $phone_error_message; ?></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true" style="color: #fff;">&times;</span>
+                    </button>
+                </div>
+                <?php
+            }
+            if(isset($username_error_message)){
+                ?>
+                <div class="alert alert-danger" role="alert">
+                    <span style="color: #fff;"><?= $username_error_message; ?></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true" style="color: #fff;">&times;</span>
+                    </button>
+                </div>
+                <?php
+            }
             if(isset($email_error_message)){
                 ?>
                 <div class="alert alert-danger" role="alert">
@@ -100,8 +158,6 @@ if(isset($_POST['submit_btn'])){
                 </div>
                 <?php
             }
-           ?>
-            <?php
             if(isset($result)){
                 ?>
                 <div class="alert alert-success" role="alert">
@@ -187,7 +243,7 @@ if(isset($_POST['submit_btn'])){
                         </div>
                         <div class="form-group">
                             <span class="input-with-icon">
-                                <input type="password" class="form-control" name="password" placeholder="Password" value="<?= isset($password) ? $password : '' ?>">
+                                <input type="password" class="form-control" name="password" placeholder="Password">
                                 <i class="fa fa-key"></i>
                             </span>
                             <?php 
