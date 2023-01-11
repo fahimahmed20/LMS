@@ -35,14 +35,23 @@ if(isset($_POST['submit_btn'])){
         $input_arr['phone'] = "Phone No. is required";
     }
     if(count($input_arr) == 0 ){
-        $password_hash = password_hash($password, PASSWORD_DEFAULT);
-        $result = mysqli_query( $con ,"INSERT INTO `students`(`fname`, `lname`, `roll`, `reg`, `email`, `username`, `password`,`phone`) VALUES ('$fname','$lname','$roll','$reg','$email','$unsername','$password_hash','$phone')");
-        
-        if($result){
-            $res_success = "Registration Successfully!";
+
+        $email_check = mysqli_query($con,"SELECT * FROM `students` WHERE `email` = '$email'");
+        $email_check_err = mysqli_num_rows($email_check);
+        if($email_check_err == 0){
+
         }else{
-            $res_error = "Something wrong";
+            $email_error_message = "This email is already exists";
         }
+
+        // $password_hash = password_hash($password, PASSWORD_DEFAULT);
+        // $result = mysqli_query( $con ,"INSERT INTO `students`(`fname`, `lname`, `roll`, `reg`, `email`, `username`, `password`,`phone`) VALUES ('$fname','$lname','$roll','$reg','$email','$unsername','$password_hash','$phone')");
+        
+        // if($result){
+        //     $res_success = "Registration Successfully!";
+        // }else{
+        //     $res_error = "Something wrong";
+        // }
     }
     
 }
@@ -80,6 +89,30 @@ if(isset($_POST['submit_btn'])){
         <!--LOGO-->
         <div class="logo">
            <h1 class="text-center">LMS</h1>
+           <?php
+            if(isset($email_error_message)){
+                ?>
+                <div class="alert alert-danger" role="alert">
+                    <span style="color: #fff;"><?= $email_error_message; ?></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true" style="color: #fff;">&times;</span>
+                    </button>
+                </div>
+                <?php
+            }
+           ?>
+            <?php
+            if(isset($result)){
+                ?>
+                <div class="alert alert-success" role="alert">
+                    <span style="color: #fff;"><?= $res_success; ?></span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true" style="color: #fff;">&times;</span>
+                    </button>
+                </div>
+                <?php
+            }
+           ?>
         </div>
         <div class="box">
             <!--SIGN IN FORM-->
@@ -88,7 +121,7 @@ if(isset($_POST['submit_btn'])){
                     <form method="post" action="<?php $_SERVER['PHP_SELF'];?>">
                         <div class="form-group mt-md">
                             <span class="input-with-icon">
-                                <input type="text" class="form-control" name="fname" placeholder="First Name">
+                                <input type="text" class="form-control" name="fname" placeholder="First Name" value="<?= isset($fname) ? $fname : '' ?>">
                                 <i class="fa fa-user"></i>
                             </span>
                             <?php 
@@ -99,7 +132,7 @@ if(isset($_POST['submit_btn'])){
                         </div>
                         <div class="form-group mt-md">
                             <span class="input-with-icon">
-                                <input type="text" class="form-control" name="lname" placeholder="Last Name">
+                                <input type="text" class="form-control" name="lname" placeholder="Last Name" value="<?php echo isset($lname) ? $lname : '' ?>">
                                 <i class="fa fa-user"></i>
                             </span>
                             <?php 
@@ -110,7 +143,7 @@ if(isset($_POST['submit_btn'])){
                         </div>
                         <div class="form-group mt-md">
                             <span class="input-with-icon">
-                                <input type="text" class="form-control" name="roll" placeholder="Roll Number" pattern="[0-9]{6}">
+                                <input type="text" class="form-control" name="roll" placeholder="Roll Number" pattern="[0-9]{6}" value="<?= isset($roll) ? $roll : '' ?>">
                                 <i class="fa fa-user"></i>
                             </span>
                             <?php 
@@ -121,7 +154,7 @@ if(isset($_POST['submit_btn'])){
                         </div>
                         <div class="form-group mt-md">
                             <span class="input-with-icon">
-                                <input type="text" class="form-control" name="reg" placeholder="Registration Number" pattern="[0-9]{6}">
+                                <input type="text" class="form-control" name="reg" placeholder="Registration Number" pattern="[0-9]{6}" value="<?= isset($reg) ? $reg : '' ?>">
                                 <i class="fa fa-user"></i>
                             </span>
                             <?php 
@@ -132,7 +165,7 @@ if(isset($_POST['submit_btn'])){
                         </div>
                         <div class="form-group mt-md">
                             <span class="input-with-icon">
-                                <input type="email" class="form-control" name="email" placeholder="Your email">
+                                <input type="email" class="form-control" name="email" placeholder="Your email" value="<?= isset($email) ? $email : '' ?>">
                                 <i class="fa fa-envelope"></i>
                             </span>
                             <?php 
@@ -143,7 +176,7 @@ if(isset($_POST['submit_btn'])){
                         </div>
                         <div class="form-group mt-md">
                             <span class="input-with-icon">
-                                <input type="text" class="form-control" name="unsername" placeholder="Username" >
+                                <input type="text" class="form-control" name="unsername" placeholder="Username" value="<?= isset($unsername) ? $unsername : '' ?>">
                                 <i class="fa fa-user"></i>
                             </span>
                             <?php 
@@ -154,7 +187,7 @@ if(isset($_POST['submit_btn'])){
                         </div>
                         <div class="form-group">
                             <span class="input-with-icon">
-                                <input type="password" class="form-control" name="password" placeholder="Password">
+                                <input type="password" class="form-control" name="password" placeholder="Password" value="<?= isset($password) ? $password : '' ?>">
                                 <i class="fa fa-key"></i>
                             </span>
                             <?php 
@@ -165,7 +198,7 @@ if(isset($_POST['submit_btn'])){
                         </div>
                         <div class="form-group mt-md">
                             <span class="input-with-icon">
-                                <input type="text" class="form-control" name="phone" placeholder="Phone Number" pattern="01[1|5|6|7|8|9][0-9]{8}">
+                                <input type="text" class="form-control" name="phone" placeholder="Phone Number" pattern="01[1|5|6|7|8|9][0-9]{8}" value="<?= isset($phone) ? $phone : '' ?>">
                                 <i class="fa fa-user"></i>
                             </span>
                             <?php 
