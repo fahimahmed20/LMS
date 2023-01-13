@@ -1,21 +1,20 @@
 <?php
 require_once("../dbcon.php");
 session_start();
-if(isset($_SESSION['student_email'])){
+if(isset($_SESSION['librarian_email'])){
     header('location: index.php');
 }
 if(isset($_POST['login_submit'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-   $result =  mysqli_query($con, "SELECT * FROM `students` WHERE `email` = '$email' OR `username` = '$email';");
+   $result =  mysqli_query($con, "SELECT * FROM `librarian` WHERE `email` = '$email' OR `username` = '$email';");
    $result_err = mysqli_num_rows($result);
    if($result_err == 1){
         $row = mysqli_fetch_assoc($result);
-        if(password_verify($password,$row['password'])){
-            $_SESSION['student_email'] = $email;
+        if($row['password'] == $password){
+            $_SESSION['librarian_email'] = $email;
             header('Location: index.php');
-            
         }else{
             $resss_error = "Password invalid";
         }
@@ -29,7 +28,7 @@ if(isset($_POST['login_submit'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Sign-In</title>
+    <title>Librarian login</title>
     <link rel="apple-touch-icon" sizes="120x120" href="favicon/apple-icon-120x120.png">
     <link rel="icon" type="image/png" sizes="192x192" href="favicon/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">

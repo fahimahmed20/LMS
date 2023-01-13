@@ -1,5 +1,9 @@
 <?php
 require_once "../dbcon.php";
+session_start();
+if(isset($_SESSION['student_email'])){
+    header('location: index.php');
+}
 if(isset($_POST['submit_btn'])){
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
