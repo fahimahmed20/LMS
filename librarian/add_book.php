@@ -86,7 +86,7 @@ if(isset($_POST['submit_book'])){
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="book_publication_name" class="col-sm-4 control-label">Book Publication Name</label>
+                            <label for="book_publication_name" class="col-sm-4 control-label">Book Publisher</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" id="book_publication_name" name= "book_publication_name" placeholder="Book Publication Name">
                             </div>
