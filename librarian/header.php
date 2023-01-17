@@ -1,4 +1,5 @@
 <?php
+    require_once('../dbcon.php');
     $page = explode('/',$_SERVER['PHP_SELF']);
     $page_active = end($page);
     session_start();
@@ -31,6 +32,8 @@
 <link rel="stylesheet" href="../assets/vendor/toastr/toastr.min.css">
 <!--Magnific popup-->
 <link rel="stylesheet" href="../assets/vendor/magnific-popup/magnific-popup.css">
+<!--dataTable-->
+<link rel="stylesheet" href="../assets/vendor/data-table/media/css/dataTables.bootstrap.min.css">
 <!--TEMPLATE css-->
 <!-- ========================================================= -->
 <link rel="stylesheet" href="../assets/stylesheets/css/style.css">
@@ -177,7 +180,14 @@
                 <ul class="nav nav-left-lines" id="main-nav">
                     <!--HOME-->
                     <li class="<?= $page_active == 'index.php' ? 'active-item' : ''; ?>"><a href="index.php"><i class="fa fa-home" aria-hidden="true"></i><span>Dashboard</span></a></li>
-                    <li class="<?= $page_active == 'test.php' ? 'active-item' : ''; ?>"><a href="test.php"><i class="fa fa-home" aria-hidden="true"></i><span>Test</span></a></li>
+                    <li class="<?= $page_active == 'students.php' ? 'active-item' : ''; ?>"><a href="students.php"><i class="fa fa-home" aria-hidden="true"></i><span>Students</span></a></li>
+                    <li class="has-child-item close-item <?= $page_active == 'add_book.php' ? 'open-item' : ''; ?> <?= $page_active == 'manage_books.php' ? 'open-item' : ''; ?>">
+                        <a><i class="fa fa-book" aria-hidden="true"></i><span>Books</span></a>
+                        <ul class="nav child-nav level-1">
+                            <li class="<?= $page_active == 'add_book.php' ? 'active-item' : ''; ?>"><a href="add_book.php">Add Book</a></li>
+                            <li class="<?= $page_active == 'manage_books.php' ? 'active-item' : ''; ?>"><a href="manage_books.php">Manage Books</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </nav>
         </div>

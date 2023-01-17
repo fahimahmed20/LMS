@@ -13,6 +13,7 @@ if(isset($_POST['submit_btn'])){
     $unsername = $_POST['unsername'];
     $password = $_POST['password'];
     $phone = $_POST['phone'];
+    $status = $_POST['status'];
     $input_arr = array();
     if(empty($fname)){
         $input_arr['fname'] = "First name is required";
@@ -51,6 +52,7 @@ if(isset($_POST['submit_btn'])){
                         $phone_check = mysqli_query($con,"SELECT * FROM `students` WHERE `phone` = '$phone'");
                         $phone_check_err = mysqli_num_rows($phone_check);
                         if($phone_check_err == 0){
+                            
                             $password_hash = password_hash($password, PASSWORD_DEFAULT);
                             $result = mysqli_query( $con ,"INSERT INTO `students`(`fname`, `lname`, `roll`, `reg`, `email`, `username`, `password`,`phone`) VALUES ('$fname','$lname','$roll','$reg','$email','$unsername','$password_hash','$phone')");
                             

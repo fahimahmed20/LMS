@@ -13,9 +13,12 @@ if(isset($_POST['login_submit'])){
    if($result_err == 1){
         $row = mysqli_fetch_assoc($result);
         if(password_verify($password,$row['password'])){
-            $_SESSION['student_email'] = $email;
-            header('Location: index.php');
-            
+            if($row['status'] == 1){
+                $_SESSION['student_email'] = $email;
+                header('Location: index.php');
+            }else{
+                $resss_error = "Status Inactive";
+            }
         }else{
             $resss_error = "Password invalid";
         }

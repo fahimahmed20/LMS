@@ -7,13 +7,14 @@ if(isset($_SESSION['librarian_email'])){
 if(isset($_POST['login_submit'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
-
+    //$username = $_POST['username'];
    $result =  mysqli_query($con, "SELECT * FROM `librarian` WHERE `email` = '$email' OR `username` = '$email';");
    $result_err = mysqli_num_rows($result);
    if($result_err == 1){
         $row = mysqli_fetch_assoc($result);
         if($row['password'] == $password){
             $_SESSION['librarian_email'] = $email;
+            $_SESSION['libraian_username'] = $row['username'];
             header('Location: index.php');
         }else{
             $resss_error = "Password invalid";
@@ -95,9 +96,6 @@ if(isset($_POST['login_submit'])){
                         </div>
                         <div class="form-group text-center">
                             <a href="pages_forgot-password.html">Forgot password?</a>
-                            <hr/>
-                             <span>Don't have an account?</span>
-                            <a href="register.php" class="btn btn-block mt-sm">Register</a>
                         </div>
                     </form>
                 </div>
