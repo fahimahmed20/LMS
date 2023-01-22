@@ -189,6 +189,7 @@
                         </ul>
                     </li>
                     <li class="<?= $page_active == 'issue_book.php' ? 'active-item' : ''; ?>"><a href="issue_book.php"><i class="fa fa-book" aria-hidden="true"></i><span>Issue Book</span></a></li>
+                    <li class="<?= $page_active == 'return_book.php' ? 'active-item' : ''; ?>"><a href="return_book.php"><i class="fa fa-book" aria-hidden="true"></i><span>Return Book</span></a></li>
                 </ul>
             </nav>
         </div>
