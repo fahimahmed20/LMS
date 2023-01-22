@@ -1,4 +1,5 @@
 <?php
+    require_once "../dbcon.php";
     $page = explode('/',$_SERVER['PHP_SELF']);
     $page_active = end($page);
     session_start();
@@ -31,7 +32,8 @@
 <link rel="stylesheet" href="../assets/vendor/toastr/toastr.min.css">
 <!--Magnific popup-->
 <link rel="stylesheet" href="../assets/vendor/magnific-popup/magnific-popup.css">
-<!--TEMPLATE css-->
+<!--dataTable-->
+<link rel="stylesheet" href="../assets/vendor/data-table/media/css/dataTables.bootstrap.min.css">
 <!-- ========================================================= -->
 <link rel="stylesheet" href="../assets/stylesheets/css/style.css">
 
@@ -176,8 +178,7 @@
             <nav>
                 <ul class="nav nav-left-lines" id="main-nav">
                     <!--HOME-->
-                    <li class="<?= $page_active == 'index.php' ? 'active-item' : ''; ?>"><a href="index.php"><i class="fa fa-home" aria-hidden="true"></i><span>Dashboard</span></a></li>
-                    <li class="<?= $page_active == 'test.php' ? 'active-item' : ''; ?>"><a href="test.php"><i class="fa fa-home" aria-hidden="true"></i><span>Test</span></a></li>
+                    <li class="<?= $page_active == 'index.php' ? 'active-item' : ''; ?>"><a href="index.php"><i class="fa fa-home" aria-hidden="true"></i><span>Dashboard</span></a></li>   
                 </ul>
             </nav>
         </div>

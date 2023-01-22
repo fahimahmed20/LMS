@@ -15,6 +15,7 @@ if(isset($_POST['login_submit'])){
         if(password_verify($password,$row['password'])){
             if($row['status'] == 1){
                 $_SESSION['student_email'] = $email;
+                $_SESSION['student_id'] = $row['id'];
                 header('Location: index.php');
             }else{
                 $resss_error = "Status Inactive";

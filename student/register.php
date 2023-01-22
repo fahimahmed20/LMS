@@ -13,7 +13,7 @@ if(isset($_POST['submit_btn'])){
     $unsername = $_POST['unsername'];
     $password = $_POST['password'];
     $phone = $_POST['phone'];
-    $status = $_POST['status'];
+    //$status = $_POST['status'];
     $input_arr = array();
     if(empty($fname)){
         $input_arr['fname'] = "First name is required";

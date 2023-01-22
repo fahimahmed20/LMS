@@ -180,7 +180,7 @@
                 <ul class="nav nav-left-lines" id="main-nav">
                     <!--HOME-->
                     <li class="<?= $page_active == 'index.php' ? 'active-item' : ''; ?>"><a href="index.php"><i class="fa fa-home" aria-hidden="true"></i><span>Dashboard</span></a></li>
-                    <li class="<?= $page_active == 'students.php' ? 'active-item' : ''; ?>"><a href="students.php"><i class="fa fa-home" aria-hidden="true"></i><span>Students</span></a></li>
+                    <li class="<?= $page_active == 'students.php' ? 'active-item' : ''; ?>"><a href="students.php"><i class="fa fa-users" aria-hidden="true"></i><span>Students</span></a></li>
                     <li class="has-child-item close-item <?= $page_active == 'add_book.php' ? 'open-item' : ''; ?> <?= $page_active == 'manage_books.php' ? 'open-item' : ''; ?>">
                         <a><i class="fa fa-book" aria-hidden="true"></i><span>Books</span></a>
                         <ul class="nav child-nav level-1">
@@ -188,6 +188,7 @@
                             <li class="<?= $page_active == 'manage_books.php' ? 'active-item' : ''; ?>"><a href="manage_books.php">Manage Books</a></li>
                         </ul>
                     </li>
+                    <li class="<?= $page_active == 'issue_book.php' ? 'active-item' : ''; ?>"><a href="issue_book.php"><i class="fa fa-book" aria-hidden="true"></i><span>Issue Book</span></a></li>
                 </ul>
             </nav>
         </div>
